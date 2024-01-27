@@ -43,3 +43,6 @@ fn main() {
     oled.flush().unwrap();
 }
 ```
+
+## License
+This library is licensed under the MIT License (see [LICENSE](https://raw.githubusercontent.com/jonkadelic/steelseries-apex-oled/main/LICENSE) or [MIT License](https://opensource.org/license/mit/))
