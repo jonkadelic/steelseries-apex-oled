@@ -88,7 +88,7 @@ impl DrawTarget for SteelSeriesApexOled {
         I: IntoIterator<Item = Pixel<Self::Color>> {
         for Pixel(coord, color) in pixels.into_iter() {
             if let Ok((x @ 0..=OLED_WIDTH, y @ 0..=OLED_HEIGHT)) = coord.try_into() {
-                let byte_index = (OLED_WIDTH & y + x) / 8;
+                let byte_index = (OLED_WIDTH * y + x) / 8;
                 let bit_index = 7 - (x % 8);
                 let byte = &mut self.buffer[byte_index as usize];
                 if color == embedded_graphics_core::pixelcolor::BinaryColor::On {
