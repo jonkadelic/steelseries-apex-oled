@@ -23,3 +23,23 @@ This project's aim is to provide a driver in Rust that is compatible with the [e
 | --- | --- |
 | Rival 700 | Unknown |
 | Rival 710 | Unknown |
+
+## Examples
+```rust
+use steelseries_apex_oled::{SteelSeriesApexOled, DEVICE_ID_APEX_PRO};
+use embedded_graphics::{
+    mono_font::{ascii::FONT_5X8, MonoTextStyle},
+    pixelcolor::BinaryColor,
+    prelude::*,
+    text::{Alignment, Text},
+};
+
+fn main() {
+    let mut oled = SteelSeriesApexOled::new(DEVICE_ID_APEX_PRO).unwrap();
+    let text = MonoTextStyle::new(&FONT_5X8, BinaryColor::On);
+    Text::with_alignment("Hello, world!", Point::new(0, 10), text, Alignment::Left)
+        .draw(&mut oled)
+        .unwrap();
+    oled.flush().unwrap();
+}
+```
