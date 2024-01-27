@@ -12,6 +12,7 @@ pub struct SteelSeriesApexOled {
     buffer: [u8; BUFFER_SIZE as usize],
 }
 
+#[derive(Debug, PartialEq)]
 pub enum Error {
     DeviceNotFound,
     RusbError(rusb::Error),
