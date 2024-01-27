@@ -7,6 +7,9 @@ const OLED_WIDTH: u32 = 128;
 const OLED_HEIGHT: u32 = 40;
 const BUFFER_SIZE: u32 = OLED_WIDTH * OLED_HEIGHT / 8;
 
+const OLED_MAX_X: u32 = OLED_WIDTH - 1;
+const OLED_MAX_Y: u32 = OLED_HEIGHT - 1;
+
 pub struct SteelSeriesApexOled {
     device: rusb::DeviceHandle<rusb::GlobalContext>,
     buffer: [u8; BUFFER_SIZE as usize],
@@ -87,7 +90,7 @@ impl DrawTarget for SteelSeriesApexOled {
     where
         I: IntoIterator<Item = Pixel<Self::Color>> {
         for Pixel(coord, color) in pixels.into_iter() {
-            if let Ok((x @ 0..=OLED_WIDTH, y @ 0..=OLED_HEIGHT)) = coord.try_into() {
+            if let Ok((x @ 0..=OLED_MAX_X, y @ 0..=OLED_MAX_Y)) = coord.try_into() {
                 let byte_index = (OLED_WIDTH * y + x) / 8;
                 let bit_index = 7 - (x % 8);
                 let byte = &mut self.buffer[byte_index as usize];
